@@ -6,7 +6,8 @@ function Title({content,color,size}) {
         style={{   
         color: color,
         fontSize: size,
-        textAlign: 'center'
+        textAlign: 'center',
+        marginBottom: 20,
     }}>
         {content}
     </Text>

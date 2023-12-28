@@ -1,70 +1,65 @@
 import React, { useState } from "react";
 import {
-  View,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-} from "react-native";
-import { CommonActions } from "@react-navigation/native";
+    View,
+    TouchableOpacity,
+    Text,
+    StyleSheet,
+    SafeAreaView,
+  } from "react-native";
+import Input from "../components/Input";
+import Title from "../components/Title";
 
 export default function Login({ navigation }) {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [usernameError, setUsernameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const handleLogin=()=>{
+    console.log('onSignIn', username, password);
 
-  const handleLogin = async () => {
-//     try {
-//       const auth = getAuth(firebaseApp);
-//       await signInWithEmailAndPassword(auth, email, password);
-//       console.log("User signed in successfully!");
+    // check username
+    const failUsername = !username || username.length < 4;
+    if (failUsername) {
+      setUsernameError('Username should be at least 4 characters')
+    }
 
-//       // Navigate to the Dashboard screen upon successful login
-//       navigation.dispatch(
-//         CommonActions.reset({
-//           index: 0,
-//           routes: [{ name: "Dashboard" }],
-//         })
-//       );
-//     } catch (error) {
-//       console.error("Error signing in:", error.message);
-//     }
-  };
+    // check password
+    const failPassword = !password || password.length < 8
+    if (failPassword) {
+      setPasswordError('Password should be at least 8 characters')
+    }
 
+    //break out of this function if there were any issues
+    if (failPassword || failUsername) {
+      return
+    }
+  }
   return (
-    <View style={styles.container}>
- 
-      <Text
-        style={{
-          color: "black",
-          fontSize: 25,
-          fontWeight: "bold",
-          marginBottom: 20,
-        }}
-      >
-        Welcome!
-      </Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        onChangeText={(text) => setEmail(text)}
-        value={email}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        onChangeText={(text) => setPassword(text)}
-        value={password}
-        secureTextEntry
-      />
+    <SafeAreaView style={styles.container}>
+     <Title content="Login" color="black" size={48} />
+     <Input
+              title="Username"
+              value={username}
+              setValue={setUsername}
+              error={usernameError}
+              setError={setUsernameError}
+            />
+
+            <Input
+              title="Password"
+              value={password}
+              setValue={setPassword}
+              error={passwordError}
+              setError={setPasswordError}
+              secureTextEntry={true}
+            />
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
       <Text style={{color: "black",fontWeight:"bold"}}>Don't have an account? <TouchableOpacity onPress={() => navigation.navigate("Signup")}><Text style={styles.loginText}>Sign Up</Text></TouchableOpacity></Text>
-    </View>
+      </SafeAreaView>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -78,10 +73,11 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderWidth: 1,
     marginBottom: 20,
+    borderRadius: 10,
     padding: 10,
   },
   button: {
-    backgroundColor: "blue",
+    backgroundColor: "black",
     padding: 10,
     borderRadius: 10,
   },

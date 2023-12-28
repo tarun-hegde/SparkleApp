@@ -1,5 +1,5 @@
 import {React,useEffect} from 'react';
-import { SafeAreaView,View, Text, StyleSheet,StatusBar,Animated } from 'react-native';
+import { SafeAreaView,View, Text, StyleSheet,StatusBar,Image } from 'react-native';
 import Title from '../components/Title';
 import Chat from './Chat';
 import Friend from './Friend';
@@ -14,6 +14,26 @@ const Home = ({navigation}) => {
     return (
         <Tab.Navigator 
         screenOptions={({ route,navigation }) => ({
+            headerLeft:()=>(
+                <View style={{marginLeft:10}}>
+                    <FontAwesomeIcon icon="user" size={24} color="white" onPress={()=>navigation.openDrawer()} />
+                </View>
+            ),
+            // headerTitle:()=>(
+            //     <Title content="Realtime Chat" color="white" size={48} />
+            // ),
+            // headerTitleAlign:'center',
+            headerStyle:{
+                backgroundColor:'black',
+                shadowColor:'black'
+            },
+            headerTintColor:'white',
+            headerRight:()=>(
+                <View style={{marginRight:10}}>
+                    <FontAwesomeIcon icon="search" size={24} color="white" />
+                </View>
+            ),
+
             tabBarIcon:({focused,color,size})=>{
                 const icons={
                     Request:'bell',

@@ -15,7 +15,7 @@ const Stack = createStackNavigator();
 
 export default function Navigation() {
   const [initialized, setInitialized] = useState(true);
-  const [isauthenticated, setIsauthenticated] = useState(true);
+  const [isauthenticated, setIsauthenticated] = useState(false);
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -42,12 +42,12 @@ export default function Navigation() {
          </>
         ) : (
           <>
-          <Stack.Screen
+            <Stack.Screen
            name="Login"
            component={Login}
            options={{ headerShown: false }}
          />
-          <Stack.Screen
+           <Stack.Screen
            name="Signup"
            component={Signup}
            options={{ headerShown: false }}
