@@ -9,6 +9,7 @@ import {
 import { CommonActions } from "@react-navigation/native";
 import Title from "../components/Title";
 import Input from "../components/Input";
+import api from "../api/restapi";
 
 export default function Signup({ navigation }) {
   const [username,  setUsername]  = useState('');
@@ -24,7 +25,6 @@ export default function Signup({ navigation }) {
   const [password2Error, setPassword2Error] = useState('');
 
     const handleSignup =  () => {
-        console.log('onSignUp');
 
     //check username
     const failUsername = !username || username.length < 4;
@@ -71,6 +71,33 @@ export default function Signup({ navigation }) {
     ) {
       return;
     }
+
+    // if we get here, then all the inputs were valid
+    // so make the API call
+    api({
+      method: 'post',
+      url: 'api/signup/',
+      data: {
+        username: username,
+        first_name: firstName,
+        last_name: lastName,
+        password: password1,
+      }
+    }).then(response => {
+      console.log('Signup successful');
+      console.log(response);
+    }).catch(error => {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log('Error', error.message);
+      }
+      console.log(error.config);
+    });
     };
 
     return (
@@ -134,15 +161,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "white",
-    },
-    input: {
-        height: 40,
-        width: "75%",
-        borderColor: "gray",
-        borderWidth: 1,
-        marginBottom: 20,
-        borderRadius: 10,
-        padding: 10,
     },
     button: {
         backgroundColor: "black",

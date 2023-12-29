@@ -16,7 +16,6 @@ export default function Login({ navigation }) {
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const handleLogin=()=>{
-    console.log('onSignIn', username, password);
 
     // check username
     const failUsername = !username || username.length < 4;
@@ -91,15 +90,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
-  },
-  input: {
-    height: 40,
-    width: "75%",
-    borderColor: "gray",
-    borderWidth: 1,
-    marginBottom: 20,
-    borderRadius: 10,
-    padding: 10,
   },
   button: {
     backgroundColor: "black",
