@@ -1,0 +1,26 @@
+# Ignore virtual environment files
+*.py[cod]
+*.pyc
+__pycache__/
+.venv/
+env/
+.env
+# Ignore local database files
+db.sqlite3
+
+# Ignore media and static files
+media/
+static/
+
+# Ignore generated files
+.pytest_cache/
+.tox/
+.coverage
+
+# Ignore IDE-specific files
+.idea/
+
+# Ignore other miscellaneous files
+*.swp
+*.log
+*.ini
