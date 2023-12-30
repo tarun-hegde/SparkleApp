@@ -11,6 +11,8 @@ import Title from "../components/Title";
 import Input from "../components/Input";
 import api from "../api/restapi";
 import useStore from "../store/global";
+import utils from "../util/utils";
+import secure from "../security/secure";
 
 export default function Signup({ navigation }) {
   const [username,  setUsername]  = useState('');
@@ -85,9 +87,12 @@ const login = useStore(state => state.login)
         password: password1,
       }
     }).then(response => {
-      console.log('Signup successful');
-      console.log(response);
-      login(response.data);
+      utils.log(response.data)
+      const credentials = {
+        username: username,
+        password: password1
+      }
+      login(credentials,response.data.user)
     }).catch(error => {
       if (error.response) {
         console.log(error.response.data);

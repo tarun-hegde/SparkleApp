@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import '../font/fonts'
@@ -15,8 +15,14 @@ import useStore from "../store/global";
 const Stack = createStackNavigator();
 
 export default function Navigation() {
-  const [initialized, setInitialized] = useState(true);
+  const initialized= useStore(state => state.initialized)
   const isauthenticated = useStore(state => state.isauthenticated)
+  
+  const init = useStore(state => state.init)
+  useEffect(() => {
+   init()
+  }, [])
+
   return (
     <NavigationContainer>
       <Stack.Navigator>

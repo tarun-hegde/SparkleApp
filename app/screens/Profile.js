@@ -6,11 +6,11 @@ import { Button } from 'react-native';
 
 const Profile = () => {
     const logout = useStore(state => state.logout);
-    
+    const user = useStore(state => state.user);
     return (
         <View style={styles.container}>
             <Title title="Profile" />
-            <Text style={styles.text}>Profile</Text>
+            <Text style={styles.text}> Hi {user.username}!</Text>
             <Button title="Logout" onPress={logout} color="red" />
         </View>
     );

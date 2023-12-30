@@ -10,6 +10,8 @@ import Input from "../components/Input";
 import Title from "../components/Title";
 import api from "../api/restapi";
 import useStore from "../store/global";
+import utils from "../util/utils";
+import secure from "../security/secure";
 
 export default function Login({ navigation }) {
   const [username, setUsername] = useState("");
@@ -46,8 +48,12 @@ export default function Login({ navigation }) {
         password: password
       }
     }).then(response => {
-      console.log(response);
-      login(response.data)
+      utils.log(response.data)
+      const credentials = {
+        username: username,
+        password: password
+      }
+      login(credentials,response.data.user)
     }).catch(error => {
       if (error.response) {
         console.log(error.response.data);
