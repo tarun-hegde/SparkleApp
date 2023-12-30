@@ -10,6 +10,7 @@ import { CommonActions } from "@react-navigation/native";
 import Title from "../components/Title";
 import Input from "../components/Input";
 import api from "../api/restapi";
+import useStore from "../store/global";
 
 export default function Signup({ navigation }) {
   const [username,  setUsername]  = useState('');
@@ -23,7 +24,7 @@ export default function Signup({ navigation }) {
   const [lastNameError,  setLastNameError]  = useState('');
   const [password1Error, setPassword1Error] = useState('');
   const [password2Error, setPassword2Error] = useState('');
-
+const login = useStore(state => state.login)
     const handleSignup =  () => {
 
     //check username
@@ -86,6 +87,7 @@ export default function Signup({ navigation }) {
     }).then(response => {
       console.log('Signup successful');
       console.log(response);
+      login(response.data);
     }).catch(error => {
       if (error.response) {
         console.log(error.response.data);

@@ -1,14 +1,18 @@
 import {React,useEffect} from 'react';
-import { SafeAreaView,View, Text, StyleSheet,StatusBar,Animated } from 'react-native';
+import { SafeAreaView,View, Text, StyleSheet,StatusBar,Animated,TouchableOpacity } from 'react-native';
 import Title from '../components/Title';
-
+import useStore from '../store/global';
+import { Button } from 'react-native';
 
 const Profile = () => {
-   
+    const logout = useStore(state => state.logout);
+    
     return (
         <View style={styles.container}>
-        <Text style={styles.text}>Profile</Text>
-    </View>
+            <Title title="Profile" />
+            <Text style={styles.text}>Profile</Text>
+            <Button title="Logout" onPress={logout} color="red" />
+        </View>
     );
 };
 

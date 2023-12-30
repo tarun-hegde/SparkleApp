@@ -10,12 +10,13 @@ import Chat from "../screens/Chat";
 import Request from "../screens/Request";
 import Friend from "../screens/Friend";
 import Profile from "../screens/Profile";
+import useStore from "../store/global";
 
 const Stack = createStackNavigator();
 
 export default function Navigation() {
   const [initialized, setInitialized] = useState(true);
-  const [isauthenticated, setIsauthenticated] = useState(false);
+  const isauthenticated = useStore(state => state.isauthenticated)
   return (
     <NavigationContainer>
       <Stack.Navigator>

@@ -9,12 +9,14 @@ import {
 import Input from "../components/Input";
 import Title from "../components/Title";
 import api from "../api/restapi";
+import useStore from "../store/global";
 
 export default function Login({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const login = useStore(state => state.login)
   const handleLogin=()=>{
 
     // check username
@@ -45,6 +47,7 @@ export default function Login({ navigation }) {
       }
     }).then(response => {
       console.log(response);
+      login(response.data)
     }).catch(error => {
       if (error.response) {
         console.log(error.response.data);
