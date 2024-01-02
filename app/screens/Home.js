@@ -6,11 +6,20 @@ import Friend from './Friend';
 import Profile from './Profile';
 import Request from './Request';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import useStore from '../store/global';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 const Tab= createBottomTabNavigator();
 
 const Home = ({navigation}) => {
-   
+    const socketConnect=useStore(state=>state.socketConnect)
+    const socketDisconnect=useStore(state=>state.socketDisconnect)
+   useEffect(() => {
+      socketConnect()
+        return () => {
+            socketDisconnect()
+        }
+    }
+    , [])
     return (
         <Tab.Navigator 
         screenOptions={({ route,navigation }) => ({

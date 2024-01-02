@@ -25,13 +25,21 @@ SECRET_KEY = 'django-insecure-@e#28c$xqx=jiddk1yl8d&nzq3@o%h_=1s#!2jsv)rnwfur)qc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]  
+CORS_ALLOW_ALL_ORIGINS = True
 
 AUTH_USER_MODEL = 'sparkle.User'
 
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'corsheaders',
+    'daphne',
+    'channels',
+    'channels_redis',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,9 +47,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sparkle',
-    'rest_framework',
-    'rest_framework_simplejwt',
-    'corsheaders',
+    
+
+
+
 ]
 
 MIDDLEWARE = [
@@ -56,7 +65,6 @@ MIDDLEWARE = [
     
 ]
 
-CORS_ALLOWED_ORIGINS = ['http://localhost:19006']
 
 ROOT_URLCONF = 'server.urls'
 
@@ -75,7 +83,8 @@ TEMPLATES = [
         },
     },
 ]
-
+#Daphne
+ASGI_APPLICATION = 'server.asgi.application'
 WSGI_APPLICATION = 'server.wsgi.application'
 
 
@@ -136,3 +145,17 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
+
+#Channels
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
+
+
+#Thumbnail
+MEDIA_ROOT = BASE_DIR / 'media'

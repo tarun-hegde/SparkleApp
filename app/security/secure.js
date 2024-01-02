@@ -1,32 +1,31 @@
 import * as SecureStore from 'expo-secure-store';
 
 function set(key, object) {
-	try {
-		SecureStore.setItemAsync(key, JSON.stringify(object));
-	} catch (error) {
-		console.log('secure.set:', error);
-	}
+  try {
+    SecureStore.setItemAsync(key, JSON.stringify(object));
+  } catch (error) {
+    console.error('secure.set:', error); // Log error for debugging
+  }
 }
 
-function get(key) {
-	try {
-		const data = SecureStore.getItemAsync(key);
-		if (data !== undefined) {
-			return JSON.parse(data);
-		}
-	} catch (error) {
-		console.log('secure.get:', error);
-	}
+async function get(key) {
+  try {
+    const data = await SecureStore.getItemAsync(key); // Added 'await' for asynchronous operation
+    if (data !== undefined) {
+      return JSON.parse(data);
+    }
+  } catch (error) {
+    console.error('secure.get:', error); // Log error for debugging
+    return null; // Or handle the error appropriately
+  }
 }
 
-function remove(key) {
-	try {
-		SecureStore.deleteItemAsync(key);
-	} catch (error) {
-		console.log('secure.remove:', error);
-	}
+async function remove(key) {
+  try {
+    await SecureStore.deleteItemAsync(key); // Added 'await' for asynchronous operation
+  } catch (error) {
+    console.error('secure.remove:', error); // Log error for debugging
+  }
 }
 
-
-
-export default { set, get, remove }
+export default { set, get, remove };

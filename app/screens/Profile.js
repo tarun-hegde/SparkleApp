@@ -3,6 +3,22 @@ import { SafeAreaView,View, Text, StyleSheet,StatusBar,Animated,TouchableOpacity
 import Title from '../components/Title';
 import useStore from '../store/global';
 import { Button } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+
+// function ProfileImage() {
+//     return (
+//         <TouchableOpacity>
+//             <Image
+//                 source={require('../assets/profile.png')}
+//                 style={styles.profileImage}
+//             />
+//     <View>
+//     <FontAwesomeIcon icon={pencil} size={12} color="white" />
+//     </View>
+
+//         </TouchableOpacity>
+//     );
+// }
 
 const Profile = () => {
     const logout = useStore(state => state.logout);

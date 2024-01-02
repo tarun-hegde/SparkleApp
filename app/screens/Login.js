@@ -48,6 +48,7 @@ export default function Login({ navigation }) {
         password: password
       }
     }).then(response => {
+      console.log('Login response: ')
       utils.log(response.data)
       const credentials = {
         username: username,
@@ -55,16 +56,20 @@ export default function Login({ navigation }) {
       }
       login(credentials,response.data.user)
     }).catch(error => {
+      console.log('Login error: ')
       if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
+        console.log("1");
+        utils.log(error.response.data);
+        utils.log(error.response.status);
+        utils.log(error.response.headers);
       } else if (error.request) {
-        console.log(error.request);
+        utils.log("2");
+        utils.log(error.request);
       } else {
-        console.log('Error', error.message);
+        utils.log("3");
+        utils.log('Error', error.message);
       }
-      console.log(error.config);
+      utils.log(error.config);
     });
   }
   return (
